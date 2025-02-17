@@ -6,7 +6,7 @@
 
 using namespace std;
 
-// Вычисление одной строки
+// One row calculation
 //
 void calculateRow(int row, const vector<vector<int>>& A, const vector<vector<int>>& B, vector<vector<int>>& C) {
     int aRows = A.size();
@@ -23,7 +23,7 @@ void calculateRow(int row, const vector<vector<int>>& A, const vector<vector<int
     }
 }
 
-// Умножение матриц в многопоточном режиме
+// Matrix multiplication
 //
 vector<vector<int>> multiThreadedMultiply(const vector<vector<int>>& A, const vector<vector<int>>& B) 
 {
@@ -34,23 +34,23 @@ vector<vector<int>> multiThreadedMultiply(const vector<vector<int>>& A, const ve
 
     if (aCols != bRows) return {};
 
-    vector<vector<int>> C(aRows, vector<int>(bCols, 0)); // Создание новой матрицы
-    vector<thread> threads; // Создание вектора потоков
+    vector<vector<int>> C(aRows, vector<int>(bCols, 0)); // Creation of a new matrix
+    vector<thread> threads; // Vector with threads
 
 
     for (int i = 0; i < aRows; ++i) {
-        // Создание потоков и добавления в них функций вычисляющих определенную строку
+        // Creation of new threads with a function that calculates one row
         threads.emplace_back([i, &A, &B, &C]() {calculateRow(i, A, B, C); }); 
     }
 
-    for (int i = 0; i < threads.size(); ++i) { // Ожидание потоков
+    for (int i = 0; i < threads.size(); ++i) { // Thread waiting
         threads[i].join();
     }
 
     return C;
 }
 
-// Умножение в одном потоке
+// Single threaded multiplication
 //
 vector<vector<int>> singleThreadedMultiply(const vector<vector<int>>& A, const vector<vector<int>>& B) 
 {
@@ -77,9 +77,9 @@ vector<vector<int>> singleThreadedMultiply(const vector<vector<int>>& A, const v
 }
 
 int main() {
-    const int N = 100; // Размер матрицы
+    const int N = 100; // Size of matrices
 
-    // Создание матриц размером N x N
+    // Creation of matrices with size N x N
     vector<vector<int>> A(N, vector<int>(N));
     vector<vector<int>> B(N, vector<int>(N));
 
@@ -90,19 +90,19 @@ int main() {
         }
     }
 
-    // Произведение расчетов в одном потоке
+    // Single threaded calculations
     auto start = chrono::high_resolution_clock::now();
     auto C_single = singleThreadedMultiply(A, B);
     auto end = chrono::high_resolution_clock::now();
     chrono::duration<double> single_time = end - start;
 
-    // Произведение расчетов в нескольких потоках
+    // Multi threaded calculations
     start = chrono::high_resolution_clock::now();
     auto C_multi = multiThreadedMultiply(A, B);
     end = chrono::high_resolution_clock::now();
     chrono::duration<double> multi_time = end - start;
 
-    // Вывод результатов
+    // Results printing
     cout << "Singlethread calculations: " << single_time.count() << " second\n";
     cout << "Multithread calculations: " << multi_time.count() << " second\n";
 
