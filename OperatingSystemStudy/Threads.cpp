@@ -102,6 +102,7 @@ int main() {
     end = chrono::high_resolution_clock::now();
     chrono::duration<double> multi_time = end - start;
 
+    // Вывод результатов
     cout << "Singlethread calculations: " << single_time.count() << " second\n";
     cout << "Multithread calculations: " << multi_time.count() << " second\n";
 
