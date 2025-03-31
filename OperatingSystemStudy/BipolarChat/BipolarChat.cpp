@@ -45,7 +45,6 @@ void initialize_semaphores() {
 void cleanup_semaphores() {
     if (semOne) CloseHandle(semOne);
     if (semTwo) CloseHandle(semTwo);
-    if (semReady) CloseHandle(semReady);
 }
 
 void chat_loop(string userName, HANDLE mySem, HANDLE theirSem) {
@@ -122,6 +121,7 @@ int main() {
         mySem = semTwo;
         theirSem = semOne;
         ReleaseSemaphore(semReady, 1, NULL);
+        if (semReady) CloseHandle(semReady);
     }
 
     chat_loop(userName, mySem, theirSem);
