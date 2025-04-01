@@ -14,22 +14,6 @@ HANDLE semOne = NULL;
 HANDLE semTwo = NULL;
 HANDLE semReady = NULL;
 
-int Peek(HANDLE hSemaphore) {
-    DWORD result = WaitForSingleObject(hSemaphore, 0);
-
-    if (result == WAIT_OBJECT_0) {
-        // We acquired the semaphore - immediately release it
-        ReleaseSemaphore(hSemaphore, 1, NULL);
-        return 1; // At least 1 was available
-    }
-    else if (result == WAIT_TIMEOUT) {
-        return 0; // Semaphore was at 0
-    }
-    else {
-        return -1; // Error occurred
-    }
-}
-
 void initialize_semaphores() {
     // Create or open semaphores with initial values
     semOne = CreateSemaphoreW(NULL, 1, 1, SEM_ONE);
