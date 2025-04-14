@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BipolarChat\BipolarChat.cpp">
+    <ClCompile Include="PhilosophicalDeadlock\philosophicalDeadlock.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
