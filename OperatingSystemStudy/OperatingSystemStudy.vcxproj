@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="PhilosophicalDeadlock\philosophicalDeadlock.cpp" />
+    <ClCompile Include="BipolarChat\BipolarChat.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
